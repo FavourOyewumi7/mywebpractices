@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            text-align:center ;
+            display: flex;
+            flex-direction: column;
+            
+        }
+        .went,.bruh,.woah{
+            margin-bottom: 10em;
+            border-top: 1px solid black;
+            box-shadow: 2px 2px 2px #474747;
+
+        }
+    </style>
+</head>
+<body>
+    
+        <div class="went">
+
+        </div>
+        <div class="bruh">
+
+        </div>
+        <div class="woah">
+
+        </div>
+   
+</body>
+
+<script>
+    let bod = document.getElementsByClassName('went')[0]
+    let bods = document.getElementsByClassName('bruh')[0]
+    let bodss = document.getElementsByClassName('woah')[0]
+
+    
+
+
+    const url =  "https://api.edamam.com/search?q=chicken&app_id=47c54c96&app_key=a98240e472bcad98ce7436073d28b5f1&from=0&to=3&calories=591-722&health=alcohol-free"
+
+    fetch(url,{
+    method: "GET"})
+    .then((response)=>
+        
+        response.json()
+    )
+    .then(function(data){
+        console.log(data)
+        let story = data.hits
+        console.log(story)
+        bod.innerHTML = story[0].recipe.label
+        bods.innerHTML = story[1].recipe.label
+        bodss.innerHTML = story[2].recipe.label
+
+        let node = document.createElement('h6')
+        let text = document.createTextNode(`Calories are ${story[0].recipe.calories}`)
+        node.appendChild(text)
+        bod.appendChild(node)
+        
+        let img = document.createElement('img')
+        img.src = story[0].recipe.image
+        bod.appendChild(img)
+
+        let nodes = document.createElement('h6')
+        let texts = document.createTextNode(`Calories are ${story[1].recipe.calories}`)
+        nodes.appendChild(texts)
+        bods.appendChild(nodes)
+        let imgs = document.createElement('img')
+        imgs.src = story[1].recipe.image
+        bods.appendChild(imgs)
+
+        let nodess = document.createElement('h6')
+        let textss = document.createTextNode(`Calories are ${story[2].recipe.calories}`)
+        nodess.appendChild(textss)
+        bodss.appendChild(nodess)
+        let imgss = document.createElement('img')
+        imgss.src = story[2].recipe.image
+        bodss.appendChild(imgss)
+
+    })
+    
+    .catch((err)=>{
+        console.log(err)
+    })
+
+</script>
+</html>
